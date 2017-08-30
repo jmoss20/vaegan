@@ -88,7 +88,7 @@ class VAEGANModel:
                 dec_loss = tf.reduce_mean(gamma * reconstruction_loss - GAN_loss)
                 gan_loss = tf.reduce_mean(GAN_loss)
 
-		        # Define subnets
+                # Define subnets
                 enc = filter(lambda x: x.name.startswith("enc"), tf.trainable_variables())
                 dec = filter(lambda x: x.name.startswith("dec"), tf.trainable_variables())
                 gan = filter(lambda x: x.name.startswith("gan"), tf.trainable_variables())
@@ -148,14 +148,14 @@ class Batcher():
         
 
 if __name__ == "__main__":
-	with tf.Session() as sess:
-		model = VAEGANModel(mb_size=32)
+    with tf.Session() as sess:
+        model = VAEGANModel(mb_size=32)
         batcher = Batcher("data")        
 
-		# Summary
+        # Summary
         summary_writer = tf.summary.FileWriter('logs/vaegan', graph=sess.graph)
 
-		# Load / Init model weights
+        # Load / Init model weights
         if os.path.isfile("models/vaegan.ckpt.meta"):
             print "* Restoring saved parameters"
             model.saver.restore(sess, "models/vaegan.ckpt")
